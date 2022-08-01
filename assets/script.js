@@ -3,10 +3,28 @@
 const DOM_campo = document.querySelector('.campo');
 const DOM_dificult = document.querySelector('.select_difficulty');
 const DOM_button_field_campo = document.querySelector('.but_Play');
+const DOM_score_view = document.querySelector('.score_view');
+const DOM_score_points = document.querySelector('.score_points > span');
+const DOM_view_bomb = document.querySelector('.view_bomb');
+const DOM_reset_button = document.querySelector('#rigioca_button');
 
 
 // SE premiamo il pulsante chiamiamo la funzione genera campo
 DOM_button_field_campo.addEventListener('click', fieldGenerator);
+
+let score_point_game = 0;
+
+
+// aggiunta di un event listener per sresetare il game
+DOM_reset_button.addEventListener('click', ()=>{
+    // togliamo la vista del game over
+    DOM_score_view.style.display = 'none';
+    DOM_view_bomb.style.display = 'none';
+
+    const rg = ResetGame();
+    rg.delete_field;
+    rg.score_reset;
+})
 
 
 // creiamo una funzione per la creazione del campo
@@ -20,7 +38,9 @@ function fieldGenerator() {
     // chiamiamo la funzione remove_element dal oggetto
     rg.remove_element(piece_Field);
     // chiamiamo la cancelazione del campo dal oggetto
-    rg.delete;
+    rg.delete_field;
+    // resetiamo il punteggio
+    rg.score_reset;
     
     // creiamo una variabile con il numero per il campo da creare con il valore della dificolta
     const fieldSize = add_difficult();
@@ -37,6 +57,15 @@ function fieldGenerator() {
         piece_Field.push(pieceField(fieldSize));
         // inseriamo il numero dentro al elemento creato
         piece_Field[i].innerHTML = i + 1;
+
+        if(bombs.includes(i)){
+            piece_Field[i].setAttribute('bomb', 'true');
+            const img = document.createElement('img');
+            img.src = './assets/img/bomb_item.png';
+            piece_Field[i].append(img);
+        } else {
+            piece_Field[i].setAttribute('bomb', 'false');
+        }
         // appendiamo l'elemento al elemento padre del DOM
         DOM_campo.append(piece_Field[i]);
     }
@@ -67,13 +96,28 @@ function pieceField(num) {
 
 
 // funzione per l'ascoltatore click
-function piece_click(params) {
+function piece_click() {
 
     // aggiungere una nuova classe all'elemento creato
     this.classList.add('active');
 
     // stampiamo nella console il contenuto dell'elemento creato
     console.log(this.innerHTML);
+
+    // SE l'attributo bomb e true
+    if(this.getAttribute('bomb') === 'true'){
+        DOM_score_view.style.display = 'flex';
+        DOM_view_bomb.style.display = 'flex';
+    }
+
+    // SE l'attributo bomb e false
+    if(this.getAttribute('bomb') === 'false'){
+        // incrementa di 1 il punteggio
+        score_point_game++;
+    }
+
+    // inserire nell'elemento DOM score il punteggio
+    DOM_score_points.innerHTML = score_point_game;
 }
 
 
@@ -88,7 +132,10 @@ function ResetGame() {
     }
     
     // togliamo tutto quello che c'è nel DOM campo
-    this.delete = DOM_campo.innerHTML = '';
+    this.delete_field = DOM_campo.innerHTML = '';
+
+    // Azzeriamo il punteggio
+    this.score_reset = score_point_game = 0;
 }
 
 

@@ -1,13 +1,13 @@
-
 :root {
     --border_width_campo: 1px;
     --color_border_campo: black;
 }
 
-body{
+body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 /* header =========================================*/
@@ -27,19 +27,20 @@ h1 {
     flex-grow: 2;
 }
 
-h1 > img {
+h1>img {
     position: relative;
     bottom: 5px;
 }
 
-.select_difficulty{
+.select_difficulty {
     flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
 }
 
-.select_difficulty, .but_Play {
+.select_difficulty,
+.but_Play {
     font-weight: bold;
 }
 
@@ -51,7 +52,8 @@ h1 > img {
     max-width: 200px;
 }
 
-.but_Play, .select_difficulty {
+.but_Play,
+.select_difficulty {
     border-radius: 7px;
     height: 25px;
     border: none;
@@ -80,7 +82,7 @@ main {
     height: 100%;
 }
 
-.content_campo{
+.content_campo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,55 +106,150 @@ main {
     border: var(--border_width_campo) solid var(--color_border_campo);
     cursor: pointer;
     user-select: none;
+    color: #000082;
+}
+
+.pezzo_campo img {
+    display: none;
 }
 
 /* #region easy */
-.pezzo_campo.easy:nth-of-type(1n):not(:nth-of-type(10n)){
+.pezzo_campo.easy:nth-of-type(1n):not(:nth-of-type(10n)) {
     border-bottom: none;
     border-right: none;
 }
 
-.pezzo_campo.easy:nth-of-type(10n){
+.pezzo_campo.easy:nth-of-type(10n) {
     border-bottom: none;
 }
 
-.pezzo_campo.easy:nth-of-type(1n + 91){
+.pezzo_campo.easy:nth-of-type(1n + 91) {
     border-bottom: var(--border_width_campo) solid var(--color_border_campo) !important;
 }
+
 /* #endregion */
 
 /* #region medium */
-.pezzo_campo.medium:nth-of-type(1n):not(:nth-of-type(9n)){
+.pezzo_campo.medium:nth-of-type(1n):not(:nth-of-type(9n)) {
     border-bottom: none;
     border-right: none;
 }
 
-.pezzo_campo.medium:nth-of-type(9n){
+.pezzo_campo.medium:nth-of-type(9n) {
     border-bottom: none;
 }
 
-.pezzo_campo.medium:nth-of-type(1n + 73){
+.pezzo_campo.medium:nth-of-type(1n + 73) {
     border-bottom: var(--border_width_campo) solid var(--color_border_campo) !important;
 }
+
 /* #endregion */
 
 /* #region hard */
-.pezzo_campo.hard:nth-of-type(1n):not(:nth-of-type(7n)){
+.pezzo_campo.hard:nth-of-type(1n):not(:nth-of-type(7n)) {
     border-bottom: none;
     border-right: none;
 }
 
-.pezzo_campo.hard:nth-of-type(7n){
+.pezzo_campo.hard:nth-of-type(7n) {
     border-bottom: none;
 }
 
-.pezzo_campo.hard:nth-of-type(1n + 43){
+.pezzo_campo.hard:nth-of-type(1n + 43) {
     border-bottom: var(--border_width_campo) solid var(--color_border_campo) !important;
 }
+
 /* #endregion */
 
 .pezzo_campo.active {
-    background-color: azure;
+    background-color: #16166d;
+    color: white;
+}
+
+.pezzo_campo.active[bomb='true'] {
+    background-color: #850606;
+}
+
+.score_view {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000000c7;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    color: white;
+}
+
+.view_bomb {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.text_gradiante {
+    font-size: 50px;
+    background: -webkit-linear-gradient(0deg, #056ea2, #ff1500);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.view_bomb img {
+    animation: bomb 0.8s ease-in-out infinite;
+}
+
+.view_bomb img:hover {
+    animation-play-state: paused;
+}
+
+@keyframes bomb {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.score_points {
+    background-image: url(./img/stelline.png);
+    background-position: center;
+    background-size: cover;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.score_points span {
+    text-decoration: underline;
+    margin-left: 10px;
+}
+
+#rigioca_button {
+    padding: 5px 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: rgb(80, 80, 80);
+    border: none;
+    box-shadow: 0 0 3px black;
+    color: white;
+    letter-spacing: 1px;
+    transition: background-color 0.2s;
+}
+
+#rigioca_button:hover {
+    background-color: rgb(110, 110, 110);
 }
 
 /* footer ========================================*/
