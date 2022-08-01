@@ -110,7 +110,9 @@ main {
 }
 
 .pezzo_campo img {
-    display: none;
+    display: block;
+    width: 80%;
+    aspect-ratio: 1;
 }
 
 /* #region easy */
@@ -183,6 +185,7 @@ main {
     justify-content: center;
     gap: 20px;
     color: white;
+    transition: opacity 1s;
 }
 
 .view_bomb {

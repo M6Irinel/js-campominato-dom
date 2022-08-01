@@ -16,35 +16,38 @@ let score_point_game = 0;
 
 
 // aggiunta di un event listener per sresetare il game
-DOM_reset_button.addEventListener('click', ()=>{
+DOM_reset_button.addEventListener('click', () => {
     // togliamo la vista del game over
     DOM_score_view.style.display = 'none';
     DOM_view_bomb.style.display = 'none';
 
-    const rg = ResetGame();
-    rg.delete_field;
+    // salviamo in una variabile l'oggetto per poterlo richiamare
+    const rg = new ResetGame();
+    // chiamiamo la cancelazione del campo dal oggetto
+    rg.delete_field();
+    // resetiamo il punteggio
     rg.score_reset;
 })
 
 
 // creiamo una funzione per la creazione del campo
 function fieldGenerator() {
-    
+
     // una array vuota che vera riempita con l'eventuali elementi
     const piece_Field = [];
-    
+
     // salviamo in una variabile l'oggetto per poterlo richiamare
-    let rg = new ResetGame();
+    const rg = new ResetGame();
     // chiamiamo la funzione remove_element dal oggetto
     rg.remove_element(piece_Field);
     // chiamiamo la cancelazione del campo dal oggetto
-    rg.delete_field;
+    rg.delete_field();
     // resetiamo il punteggio
     rg.score_reset;
-    
+
     // creiamo una variabile con il numero per il campo da creare con il valore della dificolta
     const fieldSize = add_difficult();
-    
+
     // calcolare il numero di elementi per quadrato
     const pezziCampoComplete = fieldSize ** 2;
 
@@ -58,14 +61,17 @@ function fieldGenerator() {
         // inseriamo il numero dentro al elemento creato
         piece_Field[i].innerHTML = i + 1;
 
-        if(bombs.includes(i)){
+        // SE l'array bomb include il valore i
+        if (bombs.includes(i)) {
+            // asseganmo lattributo con valore true
             piece_Field[i].setAttribute('bomb', 'true');
-            const img = document.createElement('img');
-            img.src = './assets/img/bomb_item.png';
-            piece_Field[i].append(img);
-        } else {
+        }
+        // ALTRIMENTOI:
+        else {
+            // asseganmo lattributo con valore false
             piece_Field[i].setAttribute('bomb', 'false');
         }
+
         // appendiamo l'elemento al elemento padre del DOM
         DOM_campo.append(piece_Field[i]);
     }
@@ -105,19 +111,58 @@ function piece_click() {
     console.log(this.innerHTML);
 
     // SE l'attributo bomb e true
-    if(this.getAttribute('bomb') === 'true'){
-        DOM_score_view.style.display = 'flex';
+    if (this.getAttribute('bomb') === 'true') {
+        
+        look_view_score();
+        
+        // assegnamo display flex al view bomb
         DOM_view_bomb.style.display = 'flex';
+        view_bomb();
     }
 
     // SE l'attributo bomb e false
-    if(this.getAttribute('bomb') === 'false'){
+    if (this.getAttribute('bomb') === 'false') {
         // incrementa di 1 il punteggio
         score_point_game++;
     }
 
     // inserire nell'elemento DOM score il punteggio
     DOM_score_points.innerHTML = score_point_game;
+}
+
+
+// funzione che attiva l'elemento del score
+function look_view_score() {
+    // assegnamo display flex al score view
+    DOM_score_view.style.display = 'flex';
+    // assegnamo anche opacity 0
+    DOM_score_view.style.opacity = '0';
+    // dopo mezo secondo
+    setTimeout(()=>{
+        
+        // assegnamo anche opacity 1
+        DOM_score_view.style.opacity = '1';
+    }, 500);
+}
+
+
+// appendere una img al bloco con bomb true
+function view_bomb() {
+    // prender tutti gli elementi in una variabile
+    const all = document.querySelectorAll('[bomb="true"]');
+
+    // un ciclo for per tutti gli elementi
+    for (let i = 0; i < all.length; i++) {
+        // creaiamo un elemento di tipo img
+        const img = document.createElement('img');
+        // assegnamo all'elemento creato l'src con il link per l'immagine da prendere
+        img.src = './assets/img/bomb_item.png';
+
+        // svuotiamo gli elementi
+        all[i].innerHTML = '';
+        // appendiamo agli elementi l'elemento creato
+        all[i].append(img);
+    }
 }
 
 
@@ -130,9 +175,11 @@ function ResetGame() {
             ele[i].removeEventListener('click');
         }
     }
-    
+
     // togliamo tutto quello che c'è nel DOM campo
-    this.delete_field = DOM_campo.innerHTML = '';
+    this.delete_field = function(){
+        DOM_campo.innerHTML = '';
+    }
 
     // Azzeriamo il punteggio
     this.score_reset = score_point_game = 0;
@@ -156,7 +203,7 @@ function add_difficult() {
 // funzione che crea numeri random
 function number_random(min, max) {
     // SE numero massimo e maggiore di min
-    if(max < min){
+    if (max < min) {
         // numero massimo e = al numero min
         max = min;
     }
@@ -169,15 +216,15 @@ function number_random(min, max) {
 function create_array_number_random(length_array, num_min, num_max) {
     // una array vuota di default
     const array = [];
-    
+
     // ripeti ciclo fino a quando non e arrivata l'array alla lunghezza scelta da noi
     while (array.length < length_array) {
-        
+
         // salviamo il numero generato
         const num = number_random(num_min, num_max);
 
         // SE l'array non include il numero generato
-        if(!array.includes(num)){
+        if (!array.includes(num)) {
             // pusciamo il numero nel array
             array.push(num);
         }
