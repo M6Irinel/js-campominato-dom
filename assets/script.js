@@ -8,24 +8,28 @@ const DOM_score_points = document.querySelector('.score_points > span');
 const DOM_view_bomb = document.querySelector('.view_bomb');
 const DOM_reset_button = document.querySelector('#rigioca_button');
 const DOM_view_win = document.querySelector('.view_win');
-const DOM_view_eccitazione = document.querySelector('.eccitazione');
+const DOM_view_citazione = document.querySelector('.citazione');
 
-const eccitazioni = [
-    'Aia! Non va bene',
-    'C\'è la farai la prossima volta, FIDATI',
-    'NON MOLARE, NON MOLARE.',
-    'Ti credo, e difficile',
-    'Ste bombe, TZTZTZ!',
-    'DAI DAI DAI',
-    'Non sei lunico che prova a vincere',
-    'Non ci riesci, vero!'
+const citazioni = [
+    '" Aia! Non va bene "',
+    '" C\'è la farai la prossima volta, FIDATI "',
+    '" NON MOLLARE, NON MOLLARE. "',
+    '" Ti credo, e difficile "',
+    '" Ste bombe, TZTZTZ! "',
+    '" DAI DAI DAI "',
+    '" Non sei l\'unico che prova a vincere "',
+    '" Non ci riesci, vero! "'
 ];
+
+// una varibile con il numero di bombe nel game
+const number_bombs = 16;
+
+// una varibile con il numero diel score
+let score_point_game = 0;
 
 
 // SE premiamo il pulsante chiamiamo la funzione genera campo
 DOM_button_field_campo.addEventListener('click', fieldGenerator);
-
-let score_point_game = 0;
 
 
 // aggiunta di un event listener per sresetare il game
@@ -33,6 +37,7 @@ DOM_reset_button.addEventListener('click', () => {
     // togliamo la vista del game over
     DOM_score_view.style.display = 'none';
     DOM_view_bomb.style.display = 'none';
+    DOM_view_win.style.display = 'none';
 
     // salviamo in una variabile l'oggetto per poterlo richiamare
     const rg = new ResetGame();
@@ -40,12 +45,15 @@ DOM_reset_button.addEventListener('click', () => {
     rg.delete_field();
     // resetiamo il punteggio
     rg.score_reset;
+
+    // reset style opacity 0 per il campo
+    DOM_campo.style.opacity = 0;
 })
 
 
 // creiamo una funzione per la creazione del campo
 function fieldGenerator() {
-    
+
     // una array vuota che vera riempita con l'eventuali elementi
     const piece_Field = [];
 
@@ -65,7 +73,7 @@ function fieldGenerator() {
     const pezziCampoComplete = fieldSize ** 2;
 
     // creazione del array con numeri random
-    const bombs = create_array_number_random(16, 1, pezziCampoComplete);
+    const bombs = create_array_number_random(number_bombs, 1, pezziCampoComplete);
 
     // creiamo un for per ogni elemento creato da inserire nel elemento padre del DOM
     for (let i = 0; i < pezziCampoComplete; i++) {
@@ -75,7 +83,7 @@ function fieldGenerator() {
         piece_Field[i].innerHTML = i + 1;
 
         // SE l'array bomb include il valore i
-        if (bombs.includes(i+1)) {
+        if (bombs.includes(i + 1)) {
             // asseganmo lattributo con valore true
             piece_Field[i].setAttribute('bomb', 'true');
         }
@@ -84,10 +92,13 @@ function fieldGenerator() {
             // asseganmo lattributo con valore false
             piece_Field[i].setAttribute('bomb', 'false');
         }
-        
+
         // appendiamo l'elemento al elemento padre del DOM
         DOM_campo.append(piece_Field[i]);
     }
+
+    // aggiunta style opacity 1 per il campo
+    DOM_campo.style.opacity = '1';
 }
 
 
@@ -119,40 +130,40 @@ function piece_click() {
 
     // aggiungere una nuova classe all'elemento creato
     this.classList.add('active');
-    
+
     // stampiamo nella console il contenuto dell'elemento creato
     // console.log(this.innerHTML);
-    
+
     // SE l'attributo bomb e true
     if (this.getAttribute('bomb') === 'true') {
-        
-        const eccitazione_num = number_random(0, eccitazioni.length-1);
-        DOM_view_eccitazione.innerHTML = eccitazioni[eccitazione_num];
+
+        const eccitazione_num = number_random(0, citazioni.length - 1);
+        DOM_view_citazione.innerHTML = citazioni[eccitazione_num];
 
         look_view_score();
-        
+
         // assegnamo display flex al view bomb
         DOM_view_bomb.style.display = 'flex';
         view_bomb();
     }
-    
+
     // SE l'attributo bomb e false
     if (this.getAttribute('bomb') === 'false') {
-        
+
         // incrementa di 1 il punteggio
         score_point_game++;
-        
+
         // SE il punteggio e arrivato al limite calcolato
-        if(score_point_game == add_difficult()**2-16){
+        if (score_point_game == add_difficult() ** 2 - number_bombs) {
 
             look_view_score();
-            
+
             // assegnamo display flex al view win
             DOM_view_win.style.display = 'flex';
             view_bomb();
         }
     }
-    
+
     // inserire nell'elemento DOM score il punteggio
     DOM_score_points.innerHTML = score_point_game;
 }
@@ -165,8 +176,8 @@ function look_view_score() {
     // assegnamo anche opacity 0
     DOM_score_view.style.opacity = '0';
     // dopo mezo secondo
-    setTimeout(()=>{
-        
+    setTimeout(() => {
+
         // assegnamo anche opacity 1
         DOM_score_view.style.opacity = '1';
     }, 500);
@@ -204,7 +215,7 @@ function ResetGame() {
     }
 
     // togliamo tutto quello che c'è nel DOM campo
-    this.delete_field = function(){
+    this.delete_field = function () {
         DOM_campo.innerHTML = '';
     }
 
@@ -219,9 +230,9 @@ function add_difficult() {
     switch (DOM_dificult.value) {
         case 'medium':
             return 9;
-            case 'hard':
+        case 'hard':
             return 7;
-            default:
+        default:
             return 10;
     }
 }

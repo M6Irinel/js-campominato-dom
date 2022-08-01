@@ -12,7 +12,7 @@ body {
 
 /* header =========================================*/
 
-header.my_container_header {
+.my_container_header {
     padding: 20px;
     display: flex;
     align-items: center;
@@ -22,7 +22,6 @@ header.my_container_header {
 
 h1 {
     margin-bottom: 0;
-    margin-right: auto;
     font-weight: bold;
     flex-grow: 2;
 }
@@ -30,6 +29,17 @@ h1 {
 h1>img {
     position: relative;
     bottom: 5px;
+}
+
+.element_Difficult {
+    flex-grow: 1;
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    min-width: 120px;
+    max-width: 300px;
+    font-weight: bold;
 }
 
 .select_difficulty {
@@ -96,6 +106,8 @@ main {
     height: 70vh;
     max-width: 100%;
     aspect-ratio: 1;
+    opacity: 0;
+    transition: opacity 1s;
 }
 
 .pezzo_campo {
@@ -107,6 +119,7 @@ main {
     cursor: pointer;
     user-select: none;
     color: #000082;
+    font-weight: bold;
 }
 
 .pezzo_campo img {
@@ -203,11 +216,66 @@ main {
     -webkit-text-fill-color: transparent;
 }
 
-.view_bomb img {
-    animation: bomb 0.8s ease-in-out infinite;
+.view_bomb .img {
+    animation: bomb 1s ease-in-out infinite;
+    position: relative;
 }
 
-.view_bomb img:hover {
+.view_bomb .img img:last-of-type {
+    position: absolute;
+    top: 14px;
+    right: 22px;
+    width: 40px;
+    animation: spark_bomb 0.25s linear infinite;
+}
+
+@keyframes spark_bomb {
+    0% {
+        transform: rotate(90deg);
+    }
+
+    10% {
+        transform: rotate(134deg);
+    }
+
+    20% {
+        transform: rotate(10deg);
+    }
+
+    30% {
+        transform: rotate(125deg);
+    }
+
+    40% {
+        transform: rotate(354deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    60% {
+        transform: rotate(265deg);
+    }
+
+    70% {
+        transform: rotate(178deg);
+    }
+
+    80% {
+        transform: rotate(320deg);
+    }
+
+    90% {
+        transform: rotate(268deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+.view_bomb .img:hover {
     animation-play-state: paused;
 }
 
@@ -240,31 +308,39 @@ main {
 }
 
 @keyframes win {
-    0%{
+    0% {
         transform: translateY(0);
     }
-    15%{
+
+    15% {
         transform: translateY(10px) scaleX(1.2) scaleY(0.8);
     }
-    17%{
+
+    17% {
         transform: translateY(0) scaleX(1) scaleY(1.1);
     }
-    22%{
+
+    22% {
         transform: translateY(-60px);
     }
-    26%{
+
+    26% {
         transform: translateY(-65px);
     }
-    38%{
+
+    38% {
         transform: translateY(0) scaleX(1);
     }
-    43%{
+
+    43% {
         transform: translateY(10px) scaleX(1.1) scaleY(0.9);
     }
-    48%{
+
+    48% {
         transform: translateY(0) scaleX(1);
     }
-    100%{
+
+    100% {
         transform: translateY(0);
     }
 }
@@ -325,4 +401,8 @@ footer a {
 
 footer a:hover {
     text-decoration: none;
+}
+
+footer span {
+    color: red;
 }

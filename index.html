@@ -1,73 +1,86 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>Campo Minato | Prato Fiorito | gioca online</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS v5.2.0-beta1 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<head>
 
-    <link rel="icon" type="image/png" href="https://campo-minato.com/media/icon.png">
-    <!-- <link rel="shortcut icon" type="image/x-icon" href="https://campo-minato.com/media/favicon.ico"> -->
+  <title>Campo Minato | Prato Fiorito | gioca online</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="./assets/style.css">
+  <!-- Bootstrap CSS v5.2.0-beta1 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-  </head>
-  <body>
+  <link rel="icon" type="image/png" href="https://campo-minato.com/media/icon.png">
+  <!-- <link rel="shortcut icon" type="image/x-icon" href="https://campo-minato.com/media/favicon.ico"> -->
 
-    <header class="my_container_header container">
-        <h1><img width="50" src="./assets/img/logo.png" alt="Logo Boolean"> Campo Minato</h1>
-        <div class="element_Dificult">
-          <span>Difficoltà: </span>
-          <select class="select_difficulty">
-            <option value="easy">Facile</option>
-            <option value="medium">Medio</option>
-            <option value="hard">Difficile</option>
-          </select>
+  <link rel="stylesheet" href="./assets/style.css">
+
+</head>
+
+<body>
+
+  <header class="my_container_header container">
+    <h1><img width="50" src="./assets/img/logo.png" alt="Logo Boolean"> Campo Minato</h1>
+    <div class="element_Difficult">
+      <span>Difficoltà: </span>
+      <select class="select_difficulty">
+        <option value="easy">Facile</option>
+        <option value="medium">Medio</option>
+        <option value="hard">Difficile</option>
+      </select>
+    </div>
+    <button class="but_Play">Play</button>
+  </header>
+
+  <main>
+    <div class="container con">
+      <div class="content_campo">
+        <div class="campo"></div>
+      </div>
+    </div>
+
+    <div class="score_view">
+      <div class="view_bomb">
+        <span class="citazione"></span>
+        <div class="img">
+          <img src="./assets/img/bomb.png" alt="bomb" width="200">
+          <img src="./assets/img/spark.png" alt="spark bomb">
         </div>
-        <button class="but_Play">Play</button>
-    </header>
+        <span class="text_gradiante">BOOOOOOMMMM!</span>
+      </div>
 
-    <main>
-        <div class="container con">
-            <div class="content_campo">
-                <div class="campo"></div>
-            </div>
-        </div>
+      <div class="view_win">
+        <span class="win">COMPLIMENTI!</span>
+        <img src="./assets/img/emote_win.png" alt="bomb" width="200">
+        <span class="text_gradiante">HAI FINITO!? WOOOOW!</span>
+      </div>
 
-        <div class="score_view">
-          <div class="view_bomb">
-            <span class="eccitazione"></span>
-            <img src="./assets/img/bomb.png" alt="bomb" width="200">
-            <span class="text_gradiante">BOOOOOOMMMM!</span>
-          </div>
+      <div class="score_points">Il tuo punteggio è di <span>0</span></div>
 
-          <div class="view_win">
-            <span class="win">COMPLIMENTI!</span>
-            <img src="./assets/img/emote_win.png" alt="bomb" width="200">
-            <span class="text_gradiante">HAI FINITO!? WOOOOW!</span>
-          </div>
+      <button id="rigioca_button">RIGIOCA</button>
+    </div>
+  </main>
 
-          <div class="score_points">Il tuo punteggio è di <span>0</span></div>
-
-          <button id="rigioca_button">RIGIOCA</button>
-        </div>
-    </main>
-
-    <footer class="container">
-        <div>Made with &hearts; by <a href="#">Boolean</a> Classe 70</div>
-    </footer>
+  <footer class="container">
+    <div>Made with <span>&hearts;</span> by <a href="#">Boolean</a> Classe 70</div>
+  </footer>
 
 
 
 
 
-    <script type="text/JavaScript" src="./assets/script.js"></script>
+  <script type="text/JavaScript" src="./assets/script.js"></script>
 
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
-  </body>
+
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+    integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
