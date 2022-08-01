@@ -7,6 +7,19 @@ const DOM_score_view = document.querySelector('.score_view');
 const DOM_score_points = document.querySelector('.score_points > span');
 const DOM_view_bomb = document.querySelector('.view_bomb');
 const DOM_reset_button = document.querySelector('#rigioca_button');
+const DOM_view_win = document.querySelector('.view_win');
+const DOM_view_eccitazione = document.querySelector('.eccitazione');
+
+const eccitazioni = [
+    'Aia! Non va bene',
+    'C\'è la farai la prossima volta, FIDATI',
+    'NON MOLARE, NON MOLARE.',
+    'Ti credo, e difficile',
+    'Ste bombe, TZTZTZ!',
+    'DAI DAI DAI',
+    'Non sei lunico che prova a vincere',
+    'Non ci riesci, vero!'
+];
 
 
 // SE premiamo il pulsante chiamiamo la funzione genera campo
@@ -32,7 +45,7 @@ DOM_reset_button.addEventListener('click', () => {
 
 // creiamo una funzione per la creazione del campo
 function fieldGenerator() {
-
+    
     // una array vuota che vera riempita con l'eventuali elementi
     const piece_Field = [];
 
@@ -62,7 +75,7 @@ function fieldGenerator() {
         piece_Field[i].innerHTML = i + 1;
 
         // SE l'array bomb include il valore i
-        if (bombs.includes(i)) {
+        if (bombs.includes(i+1)) {
             // asseganmo lattributo con valore true
             piece_Field[i].setAttribute('bomb', 'true');
         }
@@ -71,7 +84,7 @@ function fieldGenerator() {
             // asseganmo lattributo con valore false
             piece_Field[i].setAttribute('bomb', 'false');
         }
-
+        
         // appendiamo l'elemento al elemento padre del DOM
         DOM_campo.append(piece_Field[i]);
     }
@@ -106,26 +119,40 @@ function piece_click() {
 
     // aggiungere una nuova classe all'elemento creato
     this.classList.add('active');
-
+    
     // stampiamo nella console il contenuto dell'elemento creato
-    console.log(this.innerHTML);
-
+    // console.log(this.innerHTML);
+    
     // SE l'attributo bomb e true
     if (this.getAttribute('bomb') === 'true') {
         
+        const eccitazione_num = number_random(0, eccitazioni.length-1);
+        DOM_view_eccitazione.innerHTML = eccitazioni[eccitazione_num];
+
         look_view_score();
         
         // assegnamo display flex al view bomb
         DOM_view_bomb.style.display = 'flex';
         view_bomb();
     }
-
+    
     // SE l'attributo bomb e false
     if (this.getAttribute('bomb') === 'false') {
+        
         // incrementa di 1 il punteggio
         score_point_game++;
-    }
+        
+        // SE il punteggio e arrivato al limite calcolato
+        if(score_point_game == add_difficult()**2-16){
 
+            look_view_score();
+            
+            // assegnamo display flex al view win
+            DOM_view_win.style.display = 'flex';
+            view_bomb();
+        }
+    }
+    
     // inserire nell'elemento DOM score il punteggio
     DOM_score_points.innerHTML = score_point_game;
 }
@@ -192,9 +219,9 @@ function add_difficult() {
     switch (DOM_dificult.value) {
         case 'medium':
             return 9;
-        case 'hard':
+            case 'hard':
             return 7;
-        default:
+            default:
             return 10;
     }
 }

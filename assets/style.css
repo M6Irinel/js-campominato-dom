@@ -196,7 +196,7 @@ main {
     font-weight: bold;
 }
 
-.text_gradiante {
+.view_bomb .text_gradiante {
     font-size: 50px;
     background: -webkit-linear-gradient(0deg, #056ea2, #ff1500);
     -webkit-background-clip: text;
@@ -225,6 +225,57 @@ main {
     }
 }
 
+.view_win {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.view_win .win {
+    color: rgb(54, 216, 54);
+    font-size: 50px;
+    animation: win 2s ease-in-out infinite;
+}
+
+@keyframes win {
+    0%{
+        transform: translateY(0);
+    }
+    15%{
+        transform: translateY(10px) scaleX(1.2) scaleY(0.8);
+    }
+    17%{
+        transform: translateY(0) scaleX(1) scaleY(1.1);
+    }
+    22%{
+        transform: translateY(-60px);
+    }
+    26%{
+        transform: translateY(-65px);
+    }
+    38%{
+        transform: translateY(0) scaleX(1);
+    }
+    43%{
+        transform: translateY(10px) scaleX(1.1) scaleY(0.9);
+    }
+    48%{
+        transform: translateY(0) scaleX(1);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
+
+.view_win .text_gradiante {
+    font-size: 50px;
+    background: -webkit-linear-gradient(0deg, #8a05a2, #ffcc00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .score_points {
     background-image: url(./img/stelline.png);
     background-position: center;
@@ -237,6 +288,10 @@ main {
 .score_points span {
     text-decoration: underline;
     margin-left: 10px;
+    font-size: 40px;
+    background-color: #272727e2;
+    padding: 0 10px 10px;
+    border-radius: 5px;
 }
 
 #rigioca_button {
